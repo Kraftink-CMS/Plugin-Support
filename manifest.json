@@ -1,0 +1,127 @@
+{
+    "id": "support",
+    "name": "Support",
+    "authors": ["nivcoo", "KraftInk"],
+    "license": "MIT",
+    "description": "support::messages.package_description",
+    "market": {
+        "name": "support::market.name",
+        "author": {
+            "name": "nivcoo, KraftInk",
+            "url": "https://github.com/kraftink-cms"
+        },
+        "description": "support::market.description"
+    },
+    "type": "plugin",
+    "games": {
+        "supported": ["*"]
+    },
+    "version": "1.0.0",
+    "namespace": "KraftInk\\Plugins\\Support\\",
+    "provider": "KraftInk\\Plugins\\Support\\Providers\\PluginServiceProvider",
+    "privacy": "KraftInk\\Plugins\\Support\\Services\\Privacy",
+    "permissions": {
+        "support.view": {
+            "label": "support::messages.permission_view",
+            "default": {
+                "visitor": true,
+                "member": true
+            }
+        },
+        "support.manage": {
+            "label": "support::messages.admin_title",
+            "default": {
+                "admin": true
+            }
+        },
+        "support.purge": {
+            "label": "support::admin.permission_purge",
+            "default": {
+                "admin": true
+            }
+        },
+        "support.assign": {
+            "label": "support::admin.forms.assignment_permission",
+            "default": {
+                "admin": true
+            }
+        },
+        "support.fields.manage": {
+            "label": "support::admin.forms.fields_permission",
+            "default": {
+                "admin": true
+            }
+        }
+    },
+    "navigation": {
+        "public": [
+            {
+                "label": "support::messages.tickets.title",
+                "permission": "support.view",
+                "route": "plugins.support.public.tickets.index"
+            }
+        ],
+        "admin": [
+            {
+                "parent": "extensions",
+                "position": 400,
+                "children": [
+                    {
+                        "label": "support::messages.tickets.tickets",
+                        "route": "plugins.support.admin.tickets.index",
+                        "permission": "support.manage",
+                        "icon": "inbox"
+                    },
+                    {
+                        "label": "support::admin.categories.categories",
+                        "route": "plugins.support.admin.categories.index",
+                        "permission": "support.manage",
+                        "icon": "folder"
+                    },
+                    {
+                        "label": "support::admin.settings.forms",
+                        "route": "plugins.support.admin.fields.index",
+                        "permission": "support.fields.manage",
+                        "icon": "ui-checks"
+                    },
+                    {
+                        "label": "support::admin.templates.templates",
+                        "route": "plugins.support.admin.templates.index",
+                        "permission": "support.manage",
+                        "icon": "chat-square-text"
+                    },
+                    {
+                        "label": "support::admin.settings.settings",
+                        "route": "plugins.support.admin.settings.edit",
+                        "permission": "support.manage",
+                        "icon": "gear"
+                    }
+                ],
+                "label": "support::messages.tickets.title",
+                "icon": "life-preserver",
+                "permission": "support.manage"
+            }
+        ],
+        "footer": []
+    },
+    "imports": {
+        "kraftink": ["support__"],
+        "azuriom": ["support_"],
+        "mineweb": ["support_"]
+    },
+    "requires": {
+        "php": "^8.4.1",
+        "cms": ">=0.0.1"
+    },
+    "configuration": {
+        "route": "plugins.support.admin.tickets.index",
+        "permission": "support.manage"
+    },
+    "uninstall": {
+        "settings": ["support.", "secret.support."],
+        "storage": ["support/files"]
+    },
+    "assets": {
+        "scripts": ["js/support.js"]
+    }
+}
