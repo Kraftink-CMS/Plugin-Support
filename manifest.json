@@ -5,6 +5,11 @@
     "license": "MIT",
     "description": "support::messages.package_description",
     "market": {
+        "readme": {
+            "en": "lang/en/market.md",
+            "fr": "lang/fr/market.md"
+        },
+        "icon": "headset",
         "name": "support::market.name",
         "author": {
             "name": "nivcoo, KraftInk",
@@ -16,7 +21,7 @@
     "games": {
         "supported": ["*"]
     },
-    "version": "1.0.0",
+    "version": "1.0.1",
     "namespace": "KraftInk\\Plugins\\Support\\",
     "provider": "KraftInk\\Plugins\\Support\\Providers\\PluginServiceProvider",
     "privacy": "KraftInk\\Plugins\\Support\\Services\\Privacy",
