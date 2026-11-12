@@ -24,7 +24,8 @@ return [
     ],
     'categories' => [
         'categories' => 'Kategorien',
-        'icon' => 'Bootstrap-Symbol',
+        'icon' => 'Symbol',
+        'bootstrap_icon' => 'Bootstrap-Symbol',
         'access' => 'Wer darf eine Anfrage eröffnen?',
         'access_members' => 'Alle Mitglieder',
         'access_roles' => 'Ausgewählte Ränge',

@@ -5,6 +5,7 @@
 @php
     /** @var LengthAwarePaginator<int, Category> $categories */
     /** @var Collection<int, Role> $roles */
+    $hasContentIcons = class_exists(\App\Kraft\ContentIcons::class);
 @endphp
 @extends('admin.layouts.layout')
 @section('title', __('support::admin.categories.categories'))
@@ -30,7 +31,14 @@
                     <tbody>
                         @forelse($categories as $category)
                             <tr>
-                                <td><i class="bi bi-{{ $category->icon }}" aria-hidden="true"></i> {{ $category->name }}</td>
+                                <td>
+                                    @if ($hasContentIcons)
+                                        <x-dynamic-component component="content-icon" :name="$category->icon" />
+                                    @else
+                                        <i class="bi bi-{{ $category->icon }}" aria-hidden="true"></i>
+                                    @endif
+                                    {{ $category->name }}
+                                </td>
                                 <td>{{ strtoupper($category->locale) }}</td>
                                 <td>{{ __('support::admin.categories.access_' . $category->access) }}</td>
                                 <td>{{ __('support::admin.deadlines.' . ($category->enabled ? 'enabled' : 'disabled')) }}</td>
@@ -61,6 +69,8 @@
         @foreach ($categories->concat([null]) as $category)
             @php
                 $modalId = 'support-category-' . ($category?->id ?? 'new');
+                $icon = $category?->icon ?? 'life-preserver';
+                $icon = old('_modal') === $modalId ? old('icon', $icon) : $icon;
             @endphp
             <x-forms.modal :id="$modalId" :title="$category?->name ?? __('support::messages.tickets.new_category')" :action="$category ? route('plugins.support.admin.categories.update', $category->id) : route('plugins.support.admin.categories.store')" :method="$category ? 'PUT' : 'POST'">
                 <div class="row g-3">
@@ -78,9 +88,14 @@
                         </select>
                     </div>
                     <div class="col-md-8">
-                        <label class="form-label" for="{{ $modalId }}-icon">{{ __('support::admin.categories.icon') }}</label>
-                        <input class="form-control" id="{{ $modalId }}-icon" name="icon" value="{{ $category?->icon ?? 'life-preserver' }}"
-                            maxlength="60" required>
+                        @if ($hasContentIcons)
+                            <x-dynamic-component component="admin::icon-picker" :id="$modalId . '-icon'" name="icon"
+                                :label="__('support::admin.categories.icon')" :value="$icon" required />
+                        @else
+                            <label class="form-label" for="{{ $modalId }}-icon">{{ __('support::admin.categories.bootstrap_icon') }}</label>
+                            <input class="form-control" id="{{ $modalId }}-icon" name="icon"
+                                value="{{ is_string($icon) ? $icon : '' }}" maxlength="60" required>
+                        @endif
                     </div>
                     <div class="col-md-4">
                         <label class="form-label" for="{{ $modalId }}-position">{{ __('support::messages.tickets.position') }}</label>

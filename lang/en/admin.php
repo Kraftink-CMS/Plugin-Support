@@ -24,7 +24,8 @@ return [
     ],
     'categories' => [
         'categories' => 'Categories',
-        'icon' => 'Bootstrap icon',
+        'icon' => 'Icon',
+        'bootstrap_icon' => 'Bootstrap icon',
         'access' => 'Who can open a request?',
         'access_members' => 'All members',
         'access_roles' => 'Selected roles',
