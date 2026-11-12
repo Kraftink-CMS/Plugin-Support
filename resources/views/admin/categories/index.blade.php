@@ -30,7 +30,7 @@
                     <tbody>
                         @forelse($categories as $category)
                             <tr>
-                                <td><i class="bi bi-{{ $category->icon }}" aria-hidden="true"></i> {{ $category->name }}</td>
+                                <td><x-content-icon :name="$category->icon" /> {{ $category->name }}</td>
                                 <td>{{ strtoupper($category->locale) }}</td>
                                 <td>{{ __('support::admin.categories.access_' . $category->access) }}</td>
                                 <td>{{ __('support::admin.deadlines.' . ($category->enabled ? 'enabled' : 'disabled')) }}</td>
@@ -61,6 +61,7 @@
         @foreach ($categories->concat([null]) as $category)
             @php
                 $modalId = 'support-category-' . ($category?->id ?? 'new');
+                $icon = $category?->icon ?? 'life-preserver';
             @endphp
             <x-forms.modal :id="$modalId" :title="$category?->name ?? __('support::messages.tickets.new_category')" :action="$category ? route('plugins.support.admin.categories.update', $category->id) : route('plugins.support.admin.categories.store')" :method="$category ? 'PUT' : 'POST'">
                 <div class="row g-3">
@@ -78,9 +79,8 @@
                         </select>
                     </div>
                     <div class="col-md-8">
-                        <label class="form-label" for="{{ $modalId }}-icon">{{ __('support::admin.categories.icon') }}</label>
-                        <input class="form-control" id="{{ $modalId }}-icon" name="icon" value="{{ $category?->icon ?? 'life-preserver' }}"
-                            maxlength="60" required>
+                        <x-admin::icon-picker :id="$modalId . '-icon'" name="icon" :label="__('support::admin.categories.icon')"
+                            :value="old('_modal') === $modalId ? old('icon', $icon) : $icon" required />
                     </div>
                     <div class="col-md-4">
                         <label class="form-label" for="{{ $modalId }}-position">{{ __('support::messages.tickets.position') }}</label>

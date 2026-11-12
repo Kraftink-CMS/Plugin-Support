@@ -143,7 +143,7 @@ class SupportAdminController
             'name' => 'required|string|max:120',
             'locale' => ['required', Rule::in(array_keys(config('kraft.locales')))],
             'position' => 'required|integer|between:0,10000',
-            'icon' => 'required|regex:/^[a-z][a-z0-9-]{1,59}$/D',
+            'icon' => ['required', 'string', 'max:60', 'regex:/^[a-z0-9][a-z0-9-]*$/D'],
             'access' => ['required', Rule::in(['members', 'roles'])],
             'roles' => 'nullable|array|max:100',
             'roles.*' => 'required|integer|distinct|exists:roles,id',

@@ -24,7 +24,7 @@ return [
     ],
     'categories' => [
         'categories' => 'Categorías',
-        'icon' => 'Icono de Bootstrap',
+        'icon' => 'Icono',
         'access' => '¿Quién puede abrir una solicitud?',
         'access_members' => 'Todos los miembros',
         'access_roles' => 'Rangos seleccionados',
