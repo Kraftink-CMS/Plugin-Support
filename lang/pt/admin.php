@@ -25,7 +25,6 @@ return [
     'categories' => [
         'categories' => 'Categorias',
         'icon' => 'Ícone',
-        'bootstrap_icon' => 'Ícone do Bootstrap',
         'access' => 'Quem pode abrir um pedido?',
         'access_members' => 'Todos os membros',
         'access_roles' => 'Cargos selecionados',
